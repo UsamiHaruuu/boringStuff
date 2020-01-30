@@ -1,20 +1,23 @@
 import React from "react";
 import { Switch, Route, Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
-import { Grid, Container, Button, Divider } from "@material-ui/core";
-const Navigation = () => {
-  const useStyles = makeStyles(theme => ({
-    root: {
-      flexGrow: 1
-    },
-    typography: {
-      fontFamily: "Roboto"
-    }
-  }));
-  const classes = useStyles();
+import { Grid, Container, Button } from "@material-ui/core";
+import { Line } from "react-chartjs-2";
+import { collectWrapper } from "./collectorHelper";
+
+const HomeButton = () => {
   return (
-    <Container className={classes.typography}>
-      <Grid container spacing={0} className={classes.typography}>
+    <Button component={Link} to={"./"}>
+      <div class="NavFont">
+        <strong>FanBase</strong>
+      </div>
+    </Button>
+  );
+};
+const Navigation = () => {
+  return (
+    <Container>
+      <Grid container>
         <Grid item xs={3}>
           <Button
             variant="contained"
@@ -70,12 +73,14 @@ const Navigation = () => {
 
 const MainPage = () => {
   return (
-    <Switch>
-      <Route path="/fans" component={fans}></Route>
-      <Route path="/supporters" component={supporters}></Route>
-      <Route path="/collectors" component={collectors}></Route>
-      <Route path="/collaborators" component={collaborators}></Route>
-    </Switch>
+    <Container>
+      <Switch>
+        <Route path="/fans" component={fans}></Route>
+        <Route path="/supporters" component={supporters}></Route>
+        <Route path="/collectors" component={collectors}></Route>
+        <Route path="/collaborators" component={collaborators}></Route>
+      </Switch>
+    </Container>
   );
 };
 const fans = () => {
@@ -85,10 +90,19 @@ const supporters = () => {
   return <div>supporters!</div>;
 };
 const collectors = () => {
-  return <div>collectors!</div>;
+  return (
+    <Grid container>
+      <Grid item xs={6}>
+        collectors!
+      </Grid>
+      <Grid item xs={6}>
+        <Line data={collectWrapper.data} options={collectWrapper.option}></Line>
+      </Grid>
+    </Grid>
+  );
 };
 const collaborators = () => {
   return <div>collaborators!</div>;
 };
 
-export { Navigation, MainPage };
+export { Navigation, MainPage, HomeButton };

@@ -18,7 +18,7 @@ import {
   Notifications as NotificationsIcon,
   More as MoreIcon
 } from "@material-ui/icons";
-import { Navigation } from "./RouterHelper";
+import { HomeButton, Navigation } from "./RouterHelper";
 
 const useStyles = makeStyles(theme => ({
   grow: {
@@ -176,7 +176,7 @@ const Banner = () => {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6">
-            FanBase
+            <HomeButton />
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>
