@@ -1,14 +1,14 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
+import React from "react";
 import "./App.css";
-function App() {
+import { MainPage } from "./RouterHelper";
+import { Banner } from "./Banner";
+const App = () => {
   return (
     <div>
-      <p>Brian's branch</p>
-      <p> Joo's branch testing </p>
-      <p> Lucy's change</p>
+      <Banner />
+      <MainPage />
     </div>
   );
-}
+};
 
 export default App;
