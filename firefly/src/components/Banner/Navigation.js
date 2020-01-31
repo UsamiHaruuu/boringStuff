@@ -1,9 +1,6 @@
 import React from "react";
-import { Switch, Route, Link } from "react-router-dom";
-import { makeStyles } from "@material-ui/core/styles";
 import { Grid, Container, Button } from "@material-ui/core";
-import { Line } from "react-chartjs-2";
-import { collectWrapper } from "./collectorHelper";
+import { Link } from "react-router-dom";
 
 const HomeButton = () => {
   return (
@@ -14,6 +11,7 @@ const HomeButton = () => {
     </Button>
   );
 };
+
 const Navigation = () => {
   return (
     <Container>
@@ -26,7 +24,7 @@ const Navigation = () => {
             component={Link}
             to={"/fans"}
           >
-            <img src="logo192.png" width="25%" height="25%" />
+            {/* <img src="logo192.png" width="25%" height="25%" /> */}
             <div class="NavFont">fans</div>
           </Button>
         </Grid>
@@ -38,7 +36,7 @@ const Navigation = () => {
             component={Link}
             to={"./supporters"}
           >
-            <img src="logo192.png" width="25%" height="25%" />
+            {/* <img src="logo192.png" width="25%" height="25%" /> */}
             <div class="NavFont">supporters</div>
           </Button>
         </Grid>
@@ -50,7 +48,7 @@ const Navigation = () => {
             component={Link}
             to={"./collectors"}
           >
-            <img src="logo192.png" width="25%" height="25%" />
+            {/* <img src="logo192.png" width="25%" height="25%" /> */}
             <div class="NavFont">collectors</div>
           </Button>
         </Grid>
@@ -62,7 +60,7 @@ const Navigation = () => {
             component={Link}
             to={"./supporters"}
           >
-            <img src="logo192.png" width="25%" height="25%" />
+            {/* <img src="logo192.png" width="25%" height="25%" /> */}
             <div class="NavFont">collaborators</div>
           </Button>
         </Grid>
@@ -71,4 +69,4 @@ const Navigation = () => {
   );
 };
 
-export { Navigation, MainPage, HomeButton };
+export { Navigation, HomeButton };

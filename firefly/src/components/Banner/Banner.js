@@ -18,7 +18,7 @@ import {
   Notifications as NotificationsIcon,
   More as MoreIcon
 } from "@material-ui/icons";
-import { HomeButton, Navigation } from "./RouterHelper";
+import { HomeButton, Navigation } from "./Navigation";
 
 const useStyles = makeStyles(theme => ({
   grow: {

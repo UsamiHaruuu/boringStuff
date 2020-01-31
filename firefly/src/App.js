@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
-import { MainPage } from "./RouterHelper";
-import { Banner } from "./Banner";
-import ContactList from "./components/ContactList";
+import MainPage from "./pages/MainPage";
+import { Banner } from "./components/Banner/Banner";
 import firebase from "firebase/app";
 import "firebase/database";
 
@@ -57,7 +56,7 @@ const App = () => {
   return (
     <div>
       <Banner />
-      <MainPage />
+      <MainPage contactData={contactData} />
     </div>
   );
 };
