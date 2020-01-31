@@ -3,21 +3,20 @@ import { Switch, Route } from "react-router-dom";
 import { Grid, Container } from "@material-ui/core";
 import { Line } from "react-chartjs-2";
 import { collectWrapper } from "../collectorHelper";
-import ContactList from "../components/ContactList/ContactList";
 import StickyHeadTable from "../components/StickyHeadTable";
 
 const MainPage = ({ contactData }) => {
-  const fans = () => {
-    return <div>Fans!</div>;
+  const buyers = () => {
+    return <div>Buyers!</div>;
   };
-  const supporters = () => {
-    return <div>supporters!</div>;
+  const galleries = () => {
+    return <div>Galleries!</div>;
   };
-  const collectors = () => {
+  const sponsors = () => {
     return (
       <Grid container>
         <Grid item xs={6}>
-          collectors!
+          Sponsors!
         </Grid>
         <Grid item xs={6}>
           <Line
@@ -28,19 +27,18 @@ const MainPage = ({ contactData }) => {
       </Grid>
     );
   };
-  const collaborators = () => {
-    return <div>collaborators!</div>;
+  const mentors = () => {
+    return <div>Mentors!</div>;
   };
   return (
     <Container>
       <Switch>
-        <Route path="/fans" component={fans}></Route>
-        <Route path="/supporters" component={supporters}></Route>
-        <Route path="/collectors" component={collectors}></Route>
-        <Route path="/collaborators" component={collaborators}></Route>
+        <Route path="/buyers" component={buyers}></Route>
+        <Route path="/galleries" component={galleries}></Route>
+        <Route path="/sponsors" component={sponsors}></Route>
+        <Route path="/mentors" component={mentors}></Route>
       </Switch>
-      <ContactList contactData={contactData} />
-      <StickyHeadTable />
+      <StickyHeadTable contactData={contactData} />
     </Container>
   );
 };

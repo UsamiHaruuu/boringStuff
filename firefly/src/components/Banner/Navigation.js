@@ -22,10 +22,10 @@ const Navigation = () => {
             color="primary"
             disableElevation
             component={Link}
-            to={"/fans"}
+            to={"./buyers"}
           >
             {/* <img src="logo192.png" width="25%" height="25%" /> */}
-            <div class="NavFont">fans</div>
+            <div class="NavFont">buyers</div>
           </Button>
         </Grid>
         <Grid item xs={3}>
@@ -34,10 +34,10 @@ const Navigation = () => {
             color="primary"
             disableElevation
             component={Link}
-            to={"./supporters"}
+            to={"./galleries"}
           >
             {/* <img src="logo192.png" width="25%" height="25%" /> */}
-            <div class="NavFont">supporters</div>
+            <div class="NavFont">galleries</div>
           </Button>
         </Grid>
         <Grid item xs={3}>
@@ -46,10 +46,10 @@ const Navigation = () => {
             color="primary"
             disableElevation
             component={Link}
-            to={"./collectors"}
+            to={"./sponsors"}
           >
             {/* <img src="logo192.png" width="25%" height="25%" /> */}
-            <div class="NavFont">collectors</div>
+            <div class="NavFont">sponsors</div>
           </Button>
         </Grid>
         <Grid item xs={3}>
@@ -58,10 +58,10 @@ const Navigation = () => {
             color="primary"
             disableElevation
             component={Link}
-            to={"./supporters"}
+            to={"./mentors"}
           >
             {/* <img src="logo192.png" width="25%" height="25%" /> */}
-            <div class="NavFont">collaborators</div>
+            <div class="NavFont">mentors</div>
           </Button>
         </Grid>
       </Grid>
