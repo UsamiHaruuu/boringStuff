@@ -1,8 +1,7 @@
 import React from "react";
 import "./App.css";
-import { MainPage } from "./RouterHelper";
-import { Banner } from "./Banner";
-import ContactList from "./components/ContactList";
+import MainPage from "./pages/MainPage";
+import { Banner } from "./components/Banner/Banner";
 import firebase from "firebase/app";
 import "firebase/database";
 
@@ -25,39 +24,43 @@ const App = () => {
       email: "jbird@aol.com",
       phone: "2223334444",
       lastPurchase: "Jan 1 2019",
-      pieciesBoughtYear: 2,
-      piecesBoughtTotal: 4
+      piecesBoughtYear: 2,
+      piecesBoughtTotal: 4,
+      status: true
     },
     {
       name: "Bob Marley",
       email: "bmarley@aol.com",
       phone: "2243335444",
       lastPurchase: "June 12 2018",
-      pieciesBoughtYear: 1,
-      piecesBoughtTotal: 7
+      piecesBoughtYear: 1,
+      piecesBoughtTotal: 7,
+      status: true
     },
     {
       name: "Josh Brown",
       email: "jbrown@google.com",
       phone: "1233489324",
       lastPurchase: "Jan 27 2019",
-      pieciesBoughtYear: 3,
-      piecesBoughtTotal: 6
+      piecesBoughtYear: 3,
+      piecesBoughtTotal: 6,
+      status: true
     },
     {
       name: "Lebron james",
       email: "ljames@google.com",
       phone: "2247289032",
       lastPurchase: "Feb 11 2019",
-      pieciesBoughtYear: 0,
-      piecesBoughtTotal: 5
+      piecesBoughtYear: 0,
+      piecesBoughtTotal: 5,
+      status: false
     }
   ];
 
   return (
     <div>
       <Banner />
-      <MainPage />
+      <MainPage contactData={contactData} />
     </div>
   );
 };
