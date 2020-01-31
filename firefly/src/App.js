@@ -1,5 +1,7 @@
 import React from "react";
 import "./App.css";
+import { MainPage } from "./RouterHelper";
+import { Banner } from "./Banner";
 import ContactList from "./components/ContactList";
 import firebase from "firebase/app";
 import "firebase/database";
@@ -54,7 +56,8 @@ const App = () => {
 
   return (
     <div>
-      <ContactList contactData={contactData} />
+      <Banner />
+      <MainPage />
     </div>
   );
 };
