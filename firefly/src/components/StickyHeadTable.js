@@ -101,8 +101,12 @@ const StickyHeadTable = ({ contactData }) => {
                       console.log(typeof value);
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {value === true || value === false ? (
-                            value === true ? (
+                          {value === true ||
+                          value === false ||
+                          column.id === "email" ? (
+                            column.id === "email" ? (
+                              <a href="mailto: {value}">{value}</a>
+                            ) : value === true ? (
                               <Icon style={{ color: green[500] }}>
                                 add_circle
                               </Icon>
