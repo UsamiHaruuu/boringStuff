@@ -1,5 +1,6 @@
 import React from "react";
 import { fade, makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
@@ -19,7 +20,7 @@ import {
   More as MoreIcon
 } from "@material-ui/icons";
 import { HomeButton, Navigation } from "./Navigation";
-
+import { SignIn, LogOut } from "../../firebaseHelpers";
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1
@@ -81,7 +82,7 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
-const Banner = () => {
+const Banner = ({ user }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -119,6 +120,14 @@ const Banner = () => {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem
+        onClick={() => {
+          LogOut();
+          handleMenuClose();
+        }}
+      >
+        LogOut
+      </MenuItem>
     </Menu>
   );
 
@@ -162,7 +171,6 @@ const Banner = () => {
       </MenuItem>
     </Menu>
   );
-
   return (
     <div className={classes.grow}>
       <AppBar position="relative">
@@ -175,9 +183,7 @@ const Banner = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography className={classes.title} variant="h6">
-            <HomeButton />
-          </Typography>
+          <HomeButton />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -193,28 +199,42 @@ const Banner = () => {
           </div>
           <Navigation />
           <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={999} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={999} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
+          {user === null ? (
+            <SignIn />
+          ) : (
+            <div className={classes.sectionDesktop}>
+              <IconButton
+                aria-label="show 4 new mails"
+                color="inherit"
+                component={Link}
+                to="./email"
+              >
+                <Badge badgeContent={999} color="secondary">
+                  <MailIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                aria-label="show 17 new notifications"
+                color="inherit"
+                component={Link}
+                to="./notifications"
+              >
+                <Badge badgeContent={999} color="secondary">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            </div>
+          )}
           <div className={classes.sectionMobile}>
             <IconButton
               aria-label="show more"

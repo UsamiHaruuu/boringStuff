@@ -1,13 +1,12 @@
 import React from "react";
 import { Grid, Container, Button } from "@material-ui/core";
 import { Link } from "react-router-dom";
-
+import logo from "./logo.png";
 const HomeButton = () => {
+  console.log(logo);
   return (
-    <Button component={Link} to={"./"}>
-      <div class="NavFont">
-        <strong>FanBase</strong>
-      </div>
+    <Button component={Link} to="./">
+      <img src="logo.png" width="25%" height="25%"></img>
     </Button>
   );
 };

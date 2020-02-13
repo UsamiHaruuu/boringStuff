@@ -30,17 +30,32 @@ const MainPage = ({ contactData }) => {
   const mentors = () => {
     return <div>Mentors!</div>;
   };
+  const notifications = () => {
+    return <div>notifications!</div>;
+  };
+  const email = () => {
+    return <div>emails??!</div>;
+  };
+  const homepage = () => {
+    return (
+      <div>
+        <div>homepage</div>
+        <StickyHeadTable contactData={contactData} />
+      </div>
+    );
+  };
   return (
     <Container>
       <Switch>
-        <Route path="/buyers" component={buyers}></Route>
-        <Route path="/galleries" component={galleries}></Route>
-        <Route path="/sponsors" component={sponsors}></Route>
-        <Route path="/mentors" component={mentors}></Route>
+        <Route exact path="/buyers" component={buyers}></Route>
+        <Route exact path="/" component={homepage}></Route>
+        <Route exact path="/galleries" component={galleries}></Route>
+        <Route exact path="/sponsors" component={sponsors}></Route>
+        <Route exact path="/mentors" component={mentors}></Route>
+        <Route exact path="/email" component={email}></Route>
+        <Route exact path="/notifications" component={notifications}></Route>
       </Switch>
-      <StickyHeadTable contactData={contactData} />
     </Container>
   );
 };
-
 export default MainPage;
