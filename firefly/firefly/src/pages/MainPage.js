@@ -4,7 +4,7 @@ import { Grid, Container } from "@material-ui/core";
 import { Line } from "react-chartjs-2";
 import { collectWrapper } from "../collectorHelper";
 import StickyHeadTable from "../components/StickyHeadTable";
-
+import { firestore } from "../addDataHelper";
 const MainPage = ({ contactData }) => {
   const buyers = () => {
     return <div>Buyers!</div>;
@@ -46,6 +46,7 @@ const MainPage = ({ contactData }) => {
   };
   return (
     <Container>
+      <button onClick={firestore}>Add dummy data</button>
       <Switch>
         <Route exact path="/buyers" component={buyers}></Route>
         <Route exact path="/" component={homepage}></Route>
