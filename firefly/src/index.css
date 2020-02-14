@@ -7,7 +7,8 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
 }
 
 .NavFont {
@@ -19,7 +20,8 @@ code {
   background-color: springgreen;
 }
 
-.MuiButton-label {}
+.MuiButton-label {
+}
 
 .MuiButton-root {
   width: 200px !important;
@@ -29,7 +31,7 @@ code {
 }
 
 .firebaseui-idp-button {
-  background-color: #3F51B5 !important;
+  background-color: #3f51b5 !important;
   width: max-content !important;
 }
 
