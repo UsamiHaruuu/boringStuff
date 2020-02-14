@@ -6,6 +6,17 @@ import firebase from "firebase/app";
 import "firebase/database";
 import { db } from "./firebaseHelpers";
 import "firebase/auth";
+<<<<<<< HEAD
+=======
+
+const uiConfig = {
+  signInFlow: "popup",
+  signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  callbacks: {
+    signInSuccessWithAuthResult: () => false
+  }
+};
+>>>>>>> d48a9629a6ee3a062430a53e6cd962139fbb5c2a
 const App = () => {
   const [contactData, setContactData] = useState({});
   var contacts = Object.values(contactData);

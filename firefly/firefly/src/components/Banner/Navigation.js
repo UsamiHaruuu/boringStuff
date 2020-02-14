@@ -6,7 +6,11 @@ const HomeButton = () => {
   console.log(logo);
   return (
     <Button component={Link} to="./">
+<<<<<<< HEAD
       <img src="logo.png" width="100%" height="100%"></img>
+=======
+      <img src="logo.png" width="25%" height="25%" alt=""></img>
+>>>>>>> d48a9629a6ee3a062430a53e6cd962139fbb5c2a
     </Button>
   );
 };
