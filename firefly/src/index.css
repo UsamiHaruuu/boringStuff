@@ -1,0 +1,38 @@
+@import url("https://fonts.googleapis.com/css?family=Pacifico");
+body {
+  margin: 0;
+  font-family: "Pacifico", cursive !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+.NavFont {
+  font-size: smaller;
+  font-family: "Pacifico", cursive !important;
+}
+
+#signin {
+  background-color: springgreen;
+}
+
+.MuiButton-label {}
+
+.MuiButton-root {
+  width: 200px !important;
+  height: 60px !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
+
+.firebaseui-idp-button {
+  background-color: #3F51B5 !important;
+  width: max-content !important;
+}
+
+.firebaseui-idp-text {
+  color: black !important;
+}
