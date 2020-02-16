@@ -3,18 +3,8 @@ import firebase from "firebase/app";
 import "firebase/database";
 import "firebase/auth";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-// const firebaseConfig = {
-//   apiKey: "AIzaSyC-AdacrGfrEAuhqYatNGh0aYs0A_1_Axw",
-//   authDomain: "fanbase-d7da7.firebaseapp.com",
-//   databaseURL: "https://fanbase-d7da7.firebaseio.com",
-//   projectId: "fanbase-d7da7",
-//   storageBucket: "fanbase-d7da7.appspot.com",
-//   messagingSenderId: "1064289801186",
-//   appId: "1:1064289801186:web:9c69ad59a1eb9677725fbb",
-//   measurementId: "G-NJ9M57MCN9"
-// };
-// firebase.initializeApp(firebaseConfig);
-// const db = firebase.database().ref();
+import "firebase/firestore";
+
 const uiConfig = {
   signInFlow: "popup",
   signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
@@ -22,15 +12,15 @@ const uiConfig = {
     signInSuccessWithAuthResult: () => false
   }
 };
-require("firebase/firestore");
-const firebase2 = require("firebase");
-firebase2.initializeApp({
+
+firebase.initializeApp({
   apiKey: "AIzaSyC-AdacrGfrEAuhqYatNGh0aYs0A_1_Axw",
   authDomain: "fanbase-d7da7.firebaseapp.com",
   projectId: "fanbase-d7da7"
 });
 
 var db = firebase.firestore();
+
 const SignIn = () => (
   <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />
 );

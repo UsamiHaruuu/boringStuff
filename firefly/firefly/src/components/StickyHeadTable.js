@@ -48,7 +48,6 @@ const columns = [
     format: value => value.toLocaleString()
   }
 ];
-
 const useStyles = makeStyles({
   root: {
     width: "100%"
@@ -58,9 +57,10 @@ const useStyles = makeStyles({
   }
 });
 
-const StickyHeadTable = ({ contactData }) => {
+const StickyHeadTable = ({ Data }) => {
   const classes = useStyles();
-  const rows = contactData;
+  const rows = Data;
+  console.log(rows);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
