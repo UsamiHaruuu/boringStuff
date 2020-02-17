@@ -4,23 +4,13 @@ import { Grid, Container } from "@material-ui/core";
 import { Line } from "react-chartjs-2";
 import { collectWrapper } from "../collectorHelper";
 import StickyHeadTable from "../components/StickyHeadTable";
-import { firestore } from "../addDataHelper";
-const MainPage = ({ contactData, galleryData }) => {
+
+const MainPage = ({ contactData }) => {
   const buyers = () => {
-    return (
-      <div>
-        <div>buyers!</div>
-        <StickyHeadTable Data={contactData} />
-      </div>
-    );
+    return <div>Buyers!</div>;
   };
   const galleries = () => {
-    return (
-      <div>
-        <div>galleries!</div>
-        <StickyHeadTable Data={galleryData} />
-      </div>
-    );
+    return <div>Galleries!</div>;
   };
   const sponsors = () => {
     return (
@@ -47,11 +37,15 @@ const MainPage = ({ contactData, galleryData }) => {
     return <div>emails??!</div>;
   };
   const homepage = () => {
-    return <div>homepage</div>;
+    return (
+      <div>
+        <div>homepage</div>
+        <StickyHeadTable contactData={contactData} />
+      </div>
+    );
   };
   return (
     <Container>
-      <button onClick={firestore}>Add dummy data</button>
       <Switch>
         <Route exact path="/buyers" component={buyers}></Route>
         <Route exact path="/" component={homepage}></Route>

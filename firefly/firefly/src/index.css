@@ -10,31 +10,14 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-
 .NavFont {
   font-size: smaller;
   font-family: "Pacifico", cursive !important;
 }
-
 #signin {
   background-color: springgreen;
 }
-
 .MuiButton-label {
-}
-
-.MuiButton-root {
-  width: 200px !important;
-  height: 60px !important;
-  margin-left: 10px !important;
-  margin-right: 10px !important;
-}
-
-.firebaseui-idp-button {
-  background-color: #3f51b5 !important;
-  width: max-content !important;
-}
-
-.firebaseui-idp-text {
-  color: black !important;
+  font-size: small;
+  border: 0px;
 }

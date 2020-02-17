@@ -48,6 +48,7 @@ const columns = [
     format: value => value.toLocaleString()
   }
 ];
+
 const useStyles = makeStyles({
   root: {
     width: "100%"
@@ -57,10 +58,9 @@ const useStyles = makeStyles({
   }
 });
 
-const StickyHeadTable = ({ Data }) => {
+const StickyHeadTable = ({ contactData }) => {
   const classes = useStyles();
-  const rows = Data;
-  console.log(rows);
+  const rows = contactData;
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -98,6 +98,7 @@ const StickyHeadTable = ({ Data }) => {
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                     {columns.map(column => {
                       const value = row[column.id];
+                      console.log(typeof value);
                       return (
                         <TableCell key={column.id} align={column.align}>
                           {value === true ||
