@@ -10,14 +10,43 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 99dc5c45fe005cac5a90f53844475c350e698c42
 .NavFont {
   font-size: smaller;
   font-family: "Pacifico", cursive !important;
 }
+<<<<<<< HEAD
 #signin {
   background-color: springgreen;
 }
 .MuiButton-label {
   font-size: small;
   border: 0px;
+=======
+
+#signin {
+  background-color: springgreen;
+}
+
+.MuiButton-label {
+}
+
+.MuiButton-root {
+  width: 200px !important;
+  height: 60px !important;
+  margin-left: 10px !important;
+  margin-right: 10px !important;
+}
+
+.firebaseui-idp-button {
+  background-color: #3f51b5 !important;
+  width: max-content !important;
+}
+
+.firebaseui-idp-text {
+  color: black !important;
+>>>>>>> 99dc5c45fe005cac5a90f53844475c350e698c42
 }
