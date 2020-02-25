@@ -1,9 +1,9 @@
 let arr = Array.from({ length: 7 }, (_, i) => Math.random() * 10);
 const dummy_data = {
-  labels: ["January", "February", "March", "April", "May", "June", "July"],
+  labels: ["Jan", "Feb", "Mar", "Apr", "May", "June"],
   datasets: [
     {
-      label: "Some dummy data",
+      label: "Revenue",
       backgroundColor: "rgba(255,99,1,0.2)",
       borderColor: "rgba(255,99,132,1)",
       borderWidth: 1,
@@ -16,7 +16,7 @@ const dummy_data = {
 const options = {
   title: {
     display: true,
-    text: "text dummy data"
+    text: "1st half Revenue Rundown"
   },
   responsive: true,
   tooltips: {

@@ -1,37 +1,40 @@
 @import url("https://fonts.googleapis.com/css?family=Pacifico");
+
+@font-face {
+  font-family: "Pertili";
+  src: url("./components/Fonts/PERTIBD.TTF");
+}
+
+@font-face {
+  font-family: "Courier New";
+  src: url("./components/Fonts/cour.ttf");
+}
+
+@font-face {
+  font-family: "ENGR";
+  src: url("./components/Fonts/ENGR.TTF");
+}
+
 body {
   margin: 0;
-  font-family: "Pacifico", cursive !important;
+  font-family: "Aharoni" !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url("./imgs/abstract.jpg");
+  background-size: 100%;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> 99dc5c45fe005cac5a90f53844475c350e698c42
 .NavFont {
-  font-size: smaller;
-  font-family: "Pacifico", cursive !important;
+  font-size: medium;
+  font-family: "Pertili" !important;
 }
-<<<<<<< HEAD
-#signin {
-  background-color: springgreen;
-}
-.MuiButton-label {
-  font-size: small;
-  border: 0px;
-=======
 
 #signin {
   background-color: springgreen;
-}
-
-.MuiButton-label {
 }
 
 .MuiButton-root {
@@ -48,5 +51,11 @@ code {
 
 .firebaseui-idp-text {
   color: black !important;
->>>>>>> 99dc5c45fe005cac5a90f53844475c350e698c42
+}
+
+.MuiPaper-rounded {
+  align-items: center !important;
+}
+.makeStyles-root-234 {
+  width: auto !important;
 }

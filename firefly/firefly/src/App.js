@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Switch, Route } from "react-router-dom";
 import "./App.css";
 import MainPage from "./pages/MainPage";
 import { Banner } from "./components/Banner/Banner";
@@ -6,54 +7,71 @@ import firebase from "firebase/app";
 import "firebase/database";
 import { db } from "./firebaseHelpers";
 import "firebase/auth";
+// import { firestoreUpdateAttr, firebaseReadAndWrite } from "./addDataHelper";
+import AudiencePage from "./pages/AudiencePage";
+import { Container } from "@material-ui/core";
 
 const App = () => {
-  const [contactData, setContactData] = useState({});
-  const [galleryData, setGalleryData] = useState({});
-  let contacts = Object.values(contactData);
-  let galleries = Object.values(galleryData);
-  const [user, setUser] = useState(undefined);
   let contactArr = [];
-  let galleryArr = [];
-  let tableData = {};
+
+  const [user, setUser] = useState(undefined);
+  const [contacts, setContacts] = useState([]);
+
   useEffect(() => {
     firebase.auth().onAuthStateChanged(setUser);
   }, []);
-  if (user) console.log(user.uid);
 
   useEffect(() => {
     //return Brian's buyers
     if (user) {
-      db.collection("buyers")
-        .where("contactOfWhom", "array-contains", `${user.uid}`)
+      db.collection("userCollections")
+        .doc(`${user.uid}`)
+        .collection("contacts")
         .get()
         .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            contactArr.push(doc.data());
+          console.log(querySnapshot);
+          querySnapshot.forEach(element => {
+            contactArr.push(element.data());
           });
-          setContactData(contactArr);
-        })
-        .catch(function(error) {
-          console.log("Error getting documents: ", error);
-        });
-      db.collection("galleries")
-        .where("contactOfWhom", "array-contains", `${user.uid}`)
-        .get()
-        .then(function(querySnapshot) {
-          querySnapshot.forEach(function(doc) {
-            galleryArr.push(doc.data());
-          });
-          setGalleryData(galleryArr);
+          setContacts(contactArr);
         })
         .catch(function(error) {
           console.log("Error getting documents: ", error);
         });
     }
   }, [user]);
+
   return (
     <div>
       <Banner user={user} />
-      <MainPage contactData={contacts} galleryData={galleries} />
+      <Container>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => <MainPage contacts={contacts} />}
+          ></Route>
+          <Route
+            exact
+            path="/business"
+            render={() => (
+              <p style={{ color: "white" }}>this page is under construction</p>
+            )}
+          ></Route>
+          <Route
+            exact
+            path="/marketing"
+            render={() => (
+              <p style={{ color: "white" }}>this page is under construction</p>
+            )}
+          ></Route>
+          <Route
+            exact
+            path="/audience"
+            render={() => <AudiencePage contacts={contacts} />}
+          ></Route>
+        </Switch>
+      </Container>
     </div>
   );
 };

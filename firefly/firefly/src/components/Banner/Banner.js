@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import {
   AppBar,
   Toolbar,
-  InputBase,
+  // InputBase,
   Badge,
   MenuItem,
   Menu,
@@ -12,7 +12,6 @@ import {
 } from "@material-ui/core";
 import {
   Menu as MenuIcon,
-  Search as SearchIcon,
   AccountCircle,
   Mail as MailIcon,
   Notifications as NotificationsIcon,
@@ -20,9 +19,13 @@ import {
 } from "@material-ui/icons";
 import { HomeButton, Navigation } from "./Navigation";
 import { SignIn, LogOut } from "../../firebaseHelpers";
+
 const useStyles = makeStyles(theme => ({
   grow: {
     flexGrow: 1
+  },
+  bar: {
+    backgroundColor: "black"
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -172,7 +175,7 @@ const Banner = ({ user }) => {
   );
   return (
     <div className={classes.grow}>
-      <AppBar position="relative">
+      <AppBar className={classes.bar} position="relative">
         <Toolbar>
           <IconButton
             edge="start"
@@ -183,7 +186,7 @@ const Banner = ({ user }) => {
             <MenuIcon />
           </IconButton>
           <HomeButton />
-          <div className={classes.search}>
+          {/* <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
@@ -195,7 +198,7 @@ const Banner = ({ user }) => {
               }}
               inputProps={{ "aria-label": "search" }}
             />
-          </div>
+          </div> */}
           <Navigation />
           <div className={classes.grow} />
           {user === null ? (
@@ -208,7 +211,7 @@ const Banner = ({ user }) => {
                 component={Link}
                 to="./email"
               >
-                <Badge badgeContent={999} color="secondary">
+                <Badge badgeContent={3} color="secondary">
                   <MailIcon />
                 </Badge>
               </IconButton>
@@ -218,7 +221,7 @@ const Banner = ({ user }) => {
                 component={Link}
                 to="./notifications"
               >
-                <Badge badgeContent={999} color="secondary">
+                <Badge badgeContent={5} color="secondary">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
