@@ -4,6 +4,8 @@ import { Card, Divider, CardContent, Typography } from "@material-ui/core";
 import CardHeader from "@material-ui/core/CardHeader";
 import { makeStyles } from "@material-ui/core/styles";
 
+//The ProfileCard is now out of use, feel free to add it again.
+
 const useStyles = makeStyles(() => ({
   media: {
     borderRadius: 6,

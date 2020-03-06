@@ -1,0 +1,32 @@
+{
+  "11": {
+    "title": "My Painting 1",
+    "date": "01-01-2012",
+    "price": 10.9,
+    "isSold": true
+  },
+  "1001": {
+    "title": "My Painting 2",
+    "date": "01-12-2242",
+    "price": 11.9,
+    "isSold": false
+  },
+  "1011": {
+    "title": "My Painting 2",
+    "date": "01-01-20052",
+    "price": 12.9,
+    "isSold": false
+  },
+  "1206": {
+    "title": "My Painting 2",
+    "date": "01-01-20052",
+    "price": 12.9,
+    "isSold": false
+  },
+  "186441": {
+    "title": "My Painting 2",
+    "date": "01-01-20052",
+    "price": 12.9,
+    "isSold": true
+  }
+}

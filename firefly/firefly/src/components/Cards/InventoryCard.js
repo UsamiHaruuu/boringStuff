@@ -1,54 +1,104 @@
 import React from "react";
-import { Paper } from "@material-ui/core";
+import {
+  Button,
+  Paper,
+  Grid,
+  Divider,
+  CardHeader,
+  CardContent,
+  Card,
+  CardActionArea
+} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
-import CardContent from "@material-ui/core/CardContent";
-import PropTypes from "prop-types";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemText from "@material-ui/core/ListItemText";
-import { FixedSizeList } from "react-window";
-import Divider from "@material-ui/core/Divider";
+import Typography from "@material-ui/core/Typography";
+import { redirect } from "../Banner/Navigation";
 
-export const InventoryCard = () => {
-  const classes = makeStyles();
-
-  function renderRow(props) {
-    const { index } = props;
-
-    return (
-      <ListItem button style={{}} key={index}>
-        <img
-          src={require(`../ProfileCard/art-photos/painting${index + 1}.jpg`)}
-          style={{ width: 60, height: 60, marginRight: 20 }}
-          alt=""
-        />
-        <ListItemText primary={`Painting ${index + 1}`} />
-      </ListItem>
-    );
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  button: {
+    maxHeight: "80px",
+    maxWidth: "80px"
+  },
+  paper: {
+    width: "100%",
+    marginBottom: 20,
+    marginTop: 5,
+    marginLeft: 10,
+    height: "80px"
   }
+}));
 
-  renderRow.propTypes = {
-    index: PropTypes.number.isRequired,
-    style: PropTypes.object.isRequired
+export const InventoryCard = ({ inventory }) => {
+  const classes = useStyles();
+  const InventoryRows = ({ item }) => {
+    return (
+      <Paper elevation={0} className={classes.paper}>
+        <Grid container spacing={2}>
+          <Grid item xs={4}>
+            <img
+              src={item.add}
+              style={{ width: 75, height: 75 }}
+              alt={item.add}
+            />
+          </Grid>
+          <Grid item xs={4}>
+            {item.title.length > 16 ? (
+              <Typography
+                style={{ lineHeight: "75px", marginLeft: -20 }}
+                gutterBottom
+                variant="subtitle2"
+              >
+                {item.title.slice(0, 16) + "..."}
+              </Typography>
+            ) : (
+              <Typography
+                style={{ lineHeight: "75px", marginLeft: -20 }}
+                gutterBottom
+                variant="subtitle2"
+              >
+                {item.title}
+              </Typography>
+            )}
+          </Grid>
+          <Grid item xs={4} style={{ lineHeight: "75px" }}>
+            {item.isSold === false ? (
+              <Button color="secondary" className={classes.button}>
+                LEAD!
+              </Button>
+            ) : (
+              <Button color="default" className={classes.button}>
+                SOLD
+              </Button>
+            )}
+          </Grid>
+        </Grid>
+      </Paper>
+    );
   };
   return (
-    <Paper className={classes.paper}>
-      <Card className={classes.root}>
-        <CardHeader
-          title="Inventory"
-          subheader="Art pieces I'm selling"
-          className={classes.headerSize}
-        />
+    <div className={classes.root}>
+      <Card className={classes.root} style={{ width: "100%" }}>
+        <CardActionArea onClick={() => redirect("/#/inventory")}>
+          <Button
+            style={{ maxWidth: "50px", float: "right" }}
+            color="primary"
+            size="small"
+          >
+            MORE
+          </Button>
+          <CardHeader title="Inventory" className={classes.headerSize} />
+        </CardActionArea>
+
         <Divider />
+
         <CardContent>
-          <div>
-            <FixedSizeList height={200} width={250} itemSize={46} itemCount={2}>
-              {renderRow}
-            </FixedSizeList>
-          </div>
+          {inventory.map(item => (
+            <InventoryRows item={item} key={Math.random()} />
+          ))}
         </CardContent>
       </Card>
-    </Paper>
+    </div>
   );
 };

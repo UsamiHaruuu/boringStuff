@@ -1,20 +1,46 @@
 import React from "react";
-import { Divider, Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardHeader from "@material-ui/core/CardHeader";
-
-const useStyles = makeStyles(theme => ({}));
+import CardContent from "@material-ui/core/CardContent";
+import Typography from "@material-ui/core/Typography";
+import { lighten, withStyles } from "@material-ui/core/styles";
+import LinearProgress from "@material-ui/core/LinearProgress";
+import { Divider, Button } from "@material-ui/core";
 
 export const MarketingCard = () => {
-  const classes = useStyles();
+  const BorderLinearProgress = withStyles({
+    root: {
+      height: 10,
+      backgroundColor: lighten("#ff6c5c", 0.5),
+      margin: "10px",
+      borderRadius: 10
+    },
+    bar: {
+      borderRadius: 5,
+      backgroundColor: "#ff6c5c"
+    }
+  })(LinearProgress);
+
   return (
-    <Card className={classes.root}>
-      <CardHeader className={classes.title} title="Marketing" />
-      <Divider />
-      <Button>
-        Continue building up your profile to unlock more capablities
+    <Card style={{ width: "100%" }}>
+      <Button
+        style={{ maxWidth: "50px", float: "right" }}
+        color="primary"
+        size="small"
+      >
+        MORE
       </Button>
+      <CardHeader
+        title="Business / Marketing"
+        //subheader="Continue to build up your brand!"
+      />
+      <Divider />
+      <CardContent>
+        <img
+          src={require("../../imgs/samplecalendar.png")}
+          style={{ width: "100%", marginTop: "5%" }}
+        />
+      </CardContent>
     </Card>
   );
 };

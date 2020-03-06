@@ -1,0 +1,14 @@
+[debug] [2020-02-27T21:01:13.855Z] ----------------------------------------------------------------------
+[debug] [2020-02-27T21:01:13.857Z] Command:       D:\NodeJs\node.exe D:\NodeJs\node_modules\firebase-tools\lib\bin\firebase.js deploy --only functions
+[debug] [2020-02-27T21:01:13.857Z] CLI Version:   7.14.0
+[debug] [2020-02-27T21:01:13.857Z] Platform:      win32
+[debug] [2020-02-27T21:01:13.857Z] Node Version:  v12.14.0
+[debug] [2020-02-27T21:01:13.858Z] Time:          Thu Feb 27 2020 15:01:13 GMT-0600 (Central Standard Time)
+[debug] [2020-02-27T21:01:13.858Z] ----------------------------------------------------------------------
+[debug] [2020-02-27T21:01:13.858Z] 
+[debug] [2020-02-27T21:01:13.864Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-02-27T21:01:13.864Z] > authorizing via signed-in user
+[debug] [2020-02-27T21:01:13.864Z] [iam] checking project fanbase-d7da7 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2020-02-27T21:01:13.866Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/fanbase-d7da7:testIamPermissions  
+
+[debug] [2020-02-27T21:01:13.974Z] <<< HTTP RESPONSE 200

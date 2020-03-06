@@ -1,30 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StickyHeadTable from "../components/Tables/StickyHeadTable";
-import { Line } from "react-chartjs-2";
-import { collectWrapper } from "../collectorHelper";
+import EnhancedTable from "../components/Tables/EnhancedTable";
 import Button from "@material-ui/core/Button";
-import { /*fade, */ makeStyles } from "@material-ui/core/styles";
+import ButtonGroup from "@material-ui/core/ButtonGroup";
+import { makeStyles } from "@material-ui/core/styles";
 import { InputBase, Grid } from "@material-ui/core";
 import { Search as SearchIcon } from "@material-ui/icons";
-import BigLogo from "../imgs/AudiencePageLogo.png";
 import { Typography, Divider } from "@material-ui/core";
+import ModalManager from "../components/Modal/ModalManager";
+import { useLocation } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1
   },
   search: {
-    width: "100%",
+    float: "right",
+    position: "relative",
     borderRadius: theme.shape.borderRadius,
-    border: "1px dashed white",
-    //backgroundColor: fade("#f95c25", 0.35),
-    color: "white",
+    border: "1px dashed #263238",
+    color: "#263238",
     "&:hover": {
-      backgroundColor: "#263238"
+      backgroundColor: "white"
     },
     marginRight: theme.spacing(2),
-    marginLeft: 0,
-    // width: "100%",
+    marginTop: "10%",
     [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
       width: "auto"
@@ -33,11 +33,13 @@ const useStyles = makeStyles(theme => ({
   searchIcon: {
     width: theme.spacing(7),
     height: "100%",
-    position: "absolute",
+    position: "relative",
     pointerEvents: "none",
     display: "flex",
     alignItems: "center",
-    justifyContent: "center"
+    justifyContent: "center",
+    float: "left",
+    marginTop: "5px"
   },
   inputRoot: {
     color: "inherit"
@@ -61,7 +63,7 @@ const useStyles = makeStyles(theme => ({
   },
   divider: {
     color: "white",
-    marginTop: "5%",
+    marginTop: "2%",
     marginBottom: "2%"
   },
   button: {
@@ -71,47 +73,68 @@ const useStyles = makeStyles(theme => ({
     marginBottom: "2%"
   }
 }));
-
-const AudiencePage = ({ contacts }) => {
+const AudiencePage = ({ contacts, currUser, inventory }) => {
+  const emptyInputForm = {
+    availableTill: new Date().toLocaleDateString(),
+    subject: "",
+    password: "",
+    name: "",
+    images: [],
+    sendTo: [],
+    template:
+      "It’s been a while since my last show, but I hope you are doing well. I remember you particularly like my gouche pieces and wanted to share these recent ones with you. \n\nIf you’re interested, I would love to see you at my next show where I’ll be displaying these peices and others.",
+    content: ""
+  };
   const [table, setTable] = useState(0);
   const classes = useStyles();
+  const [formData, setFormData] = useState(emptyInputForm);
   const buyers = contacts.filter(contact => contact.type === "buyers");
   const galleries = contacts.filter(contact => contact.type === "galleries");
+  const collectors = contacts.filter(contact => contact.type === "collectors");
+  const { info } = useLocation();
+  const [contact, setContact] = useState([]);
+  console.log("this is info", info);
+  console.log(contacts);
+  useEffect(() => {
+    if (info) {
+      setContact([...contact, info.name]);
+      if (!formData["sendTo"].includes(info.name)) {
+        formData["sendTo"].push(info.email);
+      }
+    }
+  }, []);
   const BuyersTable = () => {
     return (
       <div className="showTable">
-        <div style={{ color: "white" }}> Manage My Buyers</div>
-        <StickyHeadTable Data={buyers} />
+        <div style={{ color: "#263238", marginTop: "2%" }}>
+          Manage My Buyers
+        </div>
+        <StickyHeadTable
+          Data={buyers}
+          contact={contact}
+          setContact={setContact}
+        />
       </div>
     );
   };
   const GalleriesTable = () => {
     return (
       <div className="showTable">
-        <div style={{ color: "white" }}>Manage My Galleries</div>
+        <div style={{ color: "#263238", marginTop: "2%" }}>
+          Manage My Galleries
+        </div>
         <StickyHeadTable Data={galleries} />
       </div>
     );
   };
 
-  const SponsorsTable = () => {
+  const CollectorsTable = () => {
     return (
       <div className="showTable">
-        <div style={{ color: "white" }}>Manage My Sponsors</div>
-        <div className="line">
-          <Line
-            data={collectWrapper.data}
-            options={collectWrapper.option}
-          ></Line>
+        <div style={{ color: "#263238", marginTop: "2%" }}>
+          Manage My Collectors
         </div>
-      </div>
-    );
-  };
-
-  const MentorsTable = () => {
-    return (
-      <div style={{ color: "white" }} className="showTable">
-        Manage My Mentors
+        <StickyHeadTable Data={collectors} />
       </div>
     );
   };
@@ -119,98 +142,112 @@ const AudiencePage = ({ contacts }) => {
   const SearchBar = () => {
     return (
       <div className={classes.search}>
-        <div className={classes.searchIcon}>
-          <SearchIcon />
-        </div>
         <InputBase
-          placeholder="Search…"
+          placeholder="Start Typing name..."
           classes={{
             root: classes.inputRoot,
             input: classes.inputInput
           }}
           inputProps={{ "aria-label": "search" }}
         />
+        <div className={classes.searchIcon}>
+          <SearchIcon />
+        </div>
       </div>
     );
   };
 
   const UpperPage = () => {
     return (
-      <Grid container>
+      <Grid container style={{ marginTop: "2%" }}>
         <Grid item xs={8}>
-          <p letterSpacing={10} className={classes.title}>
-            AUDIENCE
-          </p>
           <Grid container>
             <Grid item xs={3}>
               <img
-                src={require("../imgs/iconA.png")}
+                src={require("../imgs/Buyers.png")}
                 alt="buyer"
                 onClick={() => setTable(0)}
                 id="img1"
               />
               <Typography
-                align="center"
                 variant="body2"
-                style={{ marginTop: "-20%", color: "#f6c962" }}
-                for="img1"
+                style={{
+                  color: "#263238",
+                  marginTop: "10px",
+                  marginLeft: "37px"
+                }}
               >
                 Buyers
               </Typography>
             </Grid>
             <Grid item xs={3}>
               <img
-                src={require("../imgs/iconB.png")}
+                src={require("../imgs/Galleries.png")}
                 alt="gallery"
                 onClick={() => setTable(1)}
+                style={{ marginLeft: "-25px" }}
               />
               <Typography
-                align="center"
                 variant="body2"
-                style={{ marginTop: "-20%", color: "#a6dae8" }}
+                style={{
+                  color: "#263238",
+                  marginTop: "10px",
+                  marginLeft: "10px"
+                }}
               >
                 Galleries
               </Typography>
             </Grid>
+
             <Grid item xs={3}>
               <img
-                src={require("../imgs/iconC.png")}
-                alt="sponser"
-                onClick={() => setTable(2)}
-              />
-              <Typography
-                align="center"
-                variant="body2"
-                style={{ marginTop: "-20%", color: "#2c5871" }}
-              >
-                Sponsers
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              <img
-                src={require("../imgs/iconD.png")}
-                alt="mentor"
+                src={require("../imgs/Collectors.png")}
+                alt="collector"
                 onClick={() => setTable(3)}
+                style={{ marginLeft: "-40px" }}
               />
               <Typography
-                align="center"
                 variant="body2"
-                style={{ marginTop: "-20%", color: "#f95c25" }}
+                style={{
+                  color: "#263238",
+                  marginTop: "10px",
+                  marginLeft: "-13px"
+                }}
               >
-                Mentors
+                Collectors
               </Typography>
             </Grid>
+            <Grid item xs={3}></Grid>
           </Grid>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "right" }}>
-          <img
-            src={BigLogo}
-            align="center"
-            width="100%"
-            height="100%"
-            alt="logo"
-          />
+          <Button
+            variant="contained"
+            class={classes.button}
+            onClick={() => setTable(4)}
+          >
+            Show All Tables
+          </Button>
           <SearchBar />
+          <ButtonGroup style={{ paddingTop: "10px", width: "350px" }}>
+            <ModalManager
+              currUser={currUser}
+              inventory={inventory}
+              contacts={contacts}
+              info={info}
+              contact={contact}
+              setContact={setContact}
+              formData={formData}
+              setFormData={setFormData}
+            />
+            <Button
+              style={{ maxHeight: "30px" }}
+              className="add-button"
+              variant="contained"
+            >
+              Last Engaged
+            </Button>
+          </ButtonGroup>
         </Grid>
       </Grid>
     );
@@ -220,29 +257,13 @@ const AudiencePage = ({ contacts }) => {
     <div>
       <UpperPage />
       <Divider flexItem className={classes.divider} />
-      <Button
-        variant="contained"
-        class={classes.button}
-        onClick={() => setTable(4)}
-      >
-        Show All Tables
-      </Button>
       <div>
         {table === 0 ? (
           <BuyersTable />
         ) : table === 1 ? (
           <GalleriesTable />
-        ) : table === 2 ? (
-          <SponsorsTable />
-        ) : table === 3 ? (
-          <MentorsTable />
         ) : (
-          <div>
-            <BuyersTable />
-            <GalleriesTable />
-            <SponsorsTable />
-            <MentorsTable />
-          </div>
+          <CollectorsTable />
         )}
       </div>
     </div>

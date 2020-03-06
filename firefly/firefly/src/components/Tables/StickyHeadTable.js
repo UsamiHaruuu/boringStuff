@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
@@ -10,7 +10,8 @@ import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Icon from "@material-ui/core/Icon";
 import { green } from "@material-ui/core/colors";
-
+import { Checkbox } from "@material-ui/core";
+import ContactChips from "../Modal/ContactChips";
 const columns = [
   { id: "name", label: "Name", minWidth: 170 },
   { id: "email", label: "email", minWidth: 100 },
@@ -54,16 +55,27 @@ const useStyles = makeStyles({
   },
   container: {
     maxHeight: 440
+  },
+  selected: {
+    backgroundColor: "#3b05"
   }
 });
 
-const StickyHeadTable = ({ Data }) => {
+const StickyHeadTable = ({ Data, contact, setContact }) => {
   const classes = useStyles();
   const rows = Data;
-  console.log(rows);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
+  const handleSelectAllClick = rows => {
+    let names = [];
+    rows.map(row => names.push(row.name));
+    contact.length === rows.length ? setContact([]) : setContact(names);
+  };
+  const handleClick = name => {
+    !contact.includes(name)
+      ? setContact([...contact, name])
+      : setContact(contact.filter(contactName => contactName !== name));
+  };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -72,13 +84,22 @@ const StickyHeadTable = ({ Data }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-
+  console.log(contact);
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
         <Table stickyHeader aria-label="sticky table">
           <TableHead>
             <TableRow>
+              <TableCell padding="checkbox">
+                <Checkbox
+                  //indeterminate={true}
+                  //checked={false}
+                  onClick={() => handleSelectAllClick(rows)}
+                  checked={contact.length === rows.length}
+                  inputProps={{ "aria-label": "select all contacts" }}
+                />
+              </TableCell>
               {columns.map(column => (
                 <TableCell
                   key={column.id}
@@ -95,7 +116,24 @@ const StickyHeadTable = ({ Data }) => {
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
               .map(row => {
                 return (
-                  <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                  <TableRow
+                    className={
+                      contact.includes(row.name) ? classes.selected : null
+                    }
+                    clickable
+                    role="checkbox"
+                    tabIndex={-1}
+                    key={row.code}
+                  >
+                    <TableCell padding="checkbox">
+                      <Checkbox
+                        inputProps={{ "aria-labelledby": "test" }}
+                        onClick={() => {
+                          handleClick(row.name);
+                        }}
+                        checked={contact.includes(row.name)}
+                      />
+                    </TableCell>
                     {columns.map(column => {
                       const value = row[column.id];
                       return (

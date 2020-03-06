@@ -40,13 +40,14 @@ export const firestoreUpdateAttr = (user) => {
 export const firebaseReadAndWrite = user => {
   if (user) {
     db.collection("userCollections")
-      .doc(user.uid)
+      .doc("gkVgiBvx4OXWEtLtQkne0ICgrMm2")
       .collection("contacts")
       .get()
       .then(snapshot => {
         snapshot.forEach(doc => {
+          console.log(doc)
           db.collection("userCollections")
-            .doc("BG4qF8Ln2KRDZrMjcQnrPQk83pl2")
+            .doc(user.uid)
             .collection("contacts")
             .doc(doc.id)
             .set(doc.data());
