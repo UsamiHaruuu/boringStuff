@@ -9,6 +9,7 @@ import TableRow from "@material-ui/core/TableRow";
 import EmailIcon from "@material-ui/icons/Email";
 import { Link } from "react-router-dom";
 import PriorityHighIcon from "@material-ui/icons/PriorityHigh";
+import { GoPrimitiveDot } from "react-icons/go";
 
 const useStyles = makeStyles({
   container: {
@@ -34,10 +35,30 @@ export const TableView = ({ Data }) => {
                 return (
                   <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
                     <TableCell width={3}>
-                      {row.status === true ? (
-                        <PriorityHighIcon style={{ color: "orange" }} />
+                      {row.status === "R" ? (
+                        <GoPrimitiveDot
+                          style={{
+                            color: "red",
+                            width: "25px",
+                            height: "25px"
+                          }}
+                        />
+                      ) : row.status === "Y" ? (
+                        <GoPrimitiveDot
+                          style={{
+                            color: "orange",
+                            width: "25px",
+                            height: "25px"
+                          }}
+                        />
                       ) : (
-                        <PriorityHighIcon color="secondary" />
+                        <GoPrimitiveDot
+                          style={{
+                            color: "green",
+                            width: "25px",
+                            height: "25px"
+                          }}
+                        />
                       )}
                     </TableCell>
                     <TableCell>
@@ -50,6 +71,8 @@ export const TableView = ({ Data }) => {
                         ? "Thank him for last purchase"
                         : row.name === "Bob Marley"
                         ? "Follow up on next show"
+                        : row.name === "Sheena Patel"
+                        ? "Invite to Alley Gallery show"
                         : "Quartely checkin"}
                     </TableCell>
                     <TableCell>
@@ -57,7 +80,7 @@ export const TableView = ({ Data }) => {
                         to={{
                           pathname: "/audience",
                           info: {
-                            name: row.name.trim(),
+                            name: row.name,
                             email: row.email,
                             open: true
                           }

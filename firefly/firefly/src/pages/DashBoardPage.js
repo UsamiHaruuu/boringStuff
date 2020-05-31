@@ -31,12 +31,19 @@ const useStyles = makeStyles(theme => ({
   cardsAlign: {
     display: "flex",
     justifyContent: "space-between"
+  },
+  topwords: {
+    fontSize: "30px",
+    float: "left",
+    fontFamily: "Roboto",
+    marginTop: "35px",
+    marginBottom: "-15px"
   }
 }));
 
-const DashBoardPage = ({ contacts, inventory }) => {
+const DashBoardPage = ({ contacts, currUser, inventory }) => {
   const classes = useStyles();
-
+  //console.log(user);
   const BorderLinearProgress = withStyles({
     root: {
       backgroundColor: "transparent",
@@ -55,17 +62,11 @@ const DashBoardPage = ({ contacts, inventory }) => {
 
   return (
     <div className={classes.root}>
-      <p
-        style={{
-          fontSize: "30px",
-          float: "left",
-          fontFamily: "Roboto",
-          marginTop: "35px",
-          marginBottom: "-15px"
-        }}
-      >
-        Welcome Zach!
-      </p>
+      {currUser === null ? (
+        <p className={classes.topwords}>Welcome, please log in.</p>
+      ) : (
+        <p className={classes.topwords}>Welcome Zach!</p>
+      )}
       <div style={{ float: "right" }}>
         <p style={{ marginTop: "13%" }}>Your Progress: 60%</p>
         <BorderLinearProgress

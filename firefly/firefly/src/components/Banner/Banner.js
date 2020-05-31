@@ -84,7 +84,7 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }));
-const Banner = ({ user }) => {
+const Banner = ({ user, numRed }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -145,7 +145,7 @@ const Banner = ({ user }) => {
       onClose={handleMobileMenuClose}
     >
       <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
+        <IconButton aria-label="show 5 new mails" color="inherit">
           <Badge badgeContent={4} color="secondary">
             <MailIcon />
           </Badge>
@@ -153,8 +153,8 @@ const Banner = ({ user }) => {
         <p>Messages</p>
       </MenuItem>
       <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
+        <IconButton aria-label="show new notifications" color="inherit">
+          <Badge badgeContent={numRed} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -206,22 +206,13 @@ const Banner = ({ user }) => {
           ) : (
             <div className={classes.sectionDesktop}>
               <IconButton
-                aria-label="show 4 new mails"
-                color="inherit"
-                component={Link}
-                to="./email"
-              >
-                <Badge badgeContent={3} color="secondary">
-                  <MailIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                aria-label="show 17 new notifications"
+                aria-label="show new notifications"
+
                 color="inherit"
                 component={Link}
                 to="./notifications"
               >
-                <Badge badgeContent={5} color="secondary">
+                <Badge badgeContent={numRed} color="secondary">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>

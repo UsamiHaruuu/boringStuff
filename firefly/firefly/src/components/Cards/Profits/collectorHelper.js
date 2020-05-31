@@ -27,7 +27,7 @@ const dummy_data = {
 const options = {
   title: {
     display: true,
-    text: "1st half Revenue Rundown"
+    text: "Revenue Rundown 2020"
   },
   responsive: true,
   tooltips: {

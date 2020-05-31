@@ -42,7 +42,9 @@ const EmailImage = ({
 
   const handleImage = (item, formData) => {
     if (selectedImages.includes(item)) {
-      setSelectedImages(selectedImages.filter(image => image.sku !== item.sku));
+      setSelectedImages(
+        selectedImages.filter(image => image.title !== item.title)
+      );
     } else setSelectedImages([...selectedImages, item]);
   };
   return (
@@ -63,7 +65,7 @@ const EmailImage = ({
                     <img src={item.add} className={classes.image} />
                     {item.title.length > 20 ? (
                       <Typography
-                        style={{ lineHeight: "75px", marginLeft: -20 }}
+                        style={{ lineHeight: "20px" }}
                         gutterBottom
                         variant="subtitle2"
                       >
@@ -71,7 +73,7 @@ const EmailImage = ({
                       </Typography>
                     ) : (
                       <Typography
-                        style={{ lineHeight: "75px", marginLeft: -20 }}
+                        style={{ lineHeight: "20px" }}
                         gutterBottom
                         variant="subtitle2"
                       >

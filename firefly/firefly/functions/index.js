@@ -48,22 +48,12 @@ const SendEmail = async (
     }
   });
 
-<<<<<<< HEAD
-  var mailOptions = await {
-    from: sendFrom,
-    to: sendTo,
-    subject: subject,
-    html: html,
-    date: new Date()
-    // attachments: GetAttachments(images)
-  };
-=======
   var mailOptions =
     content.length > 0
       ? await {
           from: sendFrom,
           to: sendTo,
-          subject: subject,
+          subject: "Come see my new work",
           template: template,
           content: content,
           html: html,
@@ -80,7 +70,6 @@ const SendEmail = async (
           // attachments: GetAttachments(images)
         };
 
->>>>>>> 30cf519879a756bf04278f08ca7f9b459fb212ed
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.log(error);

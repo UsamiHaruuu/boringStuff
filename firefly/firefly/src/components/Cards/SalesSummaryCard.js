@@ -14,19 +14,22 @@ const useStyles = makeStyles(theme => ({
   block: {
     height: 50,
     margin: 10,
-    width: "80%"
+    width: "86%"
   },
   value: {
     fontSize: 30,
     width: 40,
     float: "left",
-    textAlign: "center"
+    textAlign: "center",
+    marginRight: "5px"
   },
   describe: {
     float: "right",
     textAlign: "left",
+    marginTop: "10px",
     width: 100,
-    fontStyle: "italic"
+    fontStyle: "italic",
+    fontSize: "14px"
   }
 }));
 
@@ -39,25 +42,25 @@ export const SalesSummaryCard = () => {
         color="primary"
         size="small"
       >
-        RECORDS
+        Details
       </Button>
       <CardHeader title="Sales Summary" />
 
       <CardContent>
         <Typography component={"span"}>
           <div className={classes.block} style={{ display: "inline-block" }}>
-            <Box className={classes.value}>4/9</Box>
+            <Box className={classes.value}>12/21</Box>
             <Box className={classes.describe}>Paintings Sold</Box>
           </div>
 
           <div className={classes.block} style={{ display: "inline-block" }}>
             <Box className={classes.value}>$5380</Box>
-            <Box className={classes.describe}>Revenue to Date</Box>
+            <Box className={classes.describe}>Revenue 2020</Box>
           </div>
 
           <div className={classes.block} style={{ display: "inline-block" }}>
             <Box className={classes.value}>$1210</Box>
-            <Box className={classes.describe}>Revenue in Month</Box>
+            <Box className={classes.describe}>Revenue in March</Box>
           </div>
         </Typography>
       </CardContent>

@@ -90,11 +90,40 @@ const EmailModal = ({ state }) => {
     currUser,
     contacts,
     info,
-    contact,
-    setContact,
-    formData,
-    setFormData
+    tableContact
   } = state;
+  const urgentInfo = info;
+  const emptyInputForm = {
+    availableTill: new Date().toLocaleDateString(),
+    subject: "Come see my latest works",
+    password: "",
+    name: "",
+    images: [],
+    sendTo: [],
+    template:
+      "It’s been a while since my last show, but I hope you are doing well. I remember you particularly like my gouche pieces and wanted to share these recent ones with you. \n\nIf you’re interested, I would love to see you at my next show where I’ll be displaying these peices and others.",
+    content: ""
+  };
+  useEffect(() => {
+    if (tableContact.length > 0 && contacts) {
+      let addedContacts = tableContact.filter(
+        person => !contact.includes(person)
+      );
+      setContact(addedContacts);
+      tableContact.map(contact => {
+        let contactInfo = contacts.find(person => person.name === contact);
+        if (!formData["sendTo"].includes(contactInfo.email))
+          formData["sendTo"].push(contactInfo.email);
+      });
+    } else if (urgentInfo) {
+      contact.push(urgentInfo.name);
+      if (!formData["sendTo"].includes(urgentInfo.name)) {
+        formData["sendTo"].push(urgentInfo.email);
+      }
+      setModalOpen(urgentInfo.open);
+      urgentInfo.open = false;
+    }
+  }, []);
   /* ##########
    
   Email Modal 
@@ -128,6 +157,11 @@ const EmailModal = ({ state }) => {
 
     divcontainer: {
       display: "flex"
+    },
+    successful: {
+      textAlign: "center",
+      fontSize: 30,
+      marginTop: "20%"
     }
   }));
   const classes = useStyles();
@@ -146,13 +180,14 @@ const EmailModal = ({ state }) => {
       flexGrow: 1
     }
   }));
+  const [formData, setFormData] = useState(emptyInputForm);
   const setFormField = (field, e) => {
     setFormData({ ...formData, [field]: e.target.value });
   };
 
   const [activeStep, setActiveStep] = useState(0);
   const [selectedImages, setSelectedImages] = useState([]);
-
+  const [contact, setContact] = useState([]);
   const steps = getSteps();
   const sendEmails = formData => {
     formData["sendTo"].map(email => {
@@ -180,7 +215,7 @@ const EmailModal = ({ state }) => {
           sendTo: email,
           subject: formData.subject,
           template: formData.template,
-          content: formData.Content,
+          content: formData.content,
           images: formData.images,
           name: formData.name,
           url:
@@ -206,12 +241,8 @@ const EmailModal = ({ state }) => {
   };
 
   formData["images"] = selectedImages;
-  console.log("this is", formData);
-  useEffect(() => {
-    if (info) {
-      setModalOpen(info.open);
-    }
-  }, []);
+  console.log(formData["sendTo"]);
+  console.log(formData);
   return (
     <Modal
       open={modalOpen}
@@ -238,18 +269,14 @@ const EmailModal = ({ state }) => {
 
           <div>
             {activeStep === steps.length ? (
-              <div>
-                <Typography className={classes.instructions} component={"span"}>
-                  Your email has been sent!
-                </Typography>
-              </div>
+              <p className={classes.successful}>Your email has been sent!</p>
             ) : (
               <div>
                 <Typography className={classes.instructions} component={"span"}>
                   {activeStep === 0 ? (
                     // Basic Info Input
                     <div className="firstStep">
-                      <h4>Set up your email headers</h4>
+                      <h4>Write your message</h4>
                       <hr></hr>
                       <div>
                         <strong>Subject</strong>
@@ -260,10 +287,13 @@ const EmailModal = ({ state }) => {
                           required
                           variant="outlined"
                           defaultValue={
-                            formData.subject ? formData.subject : ""
+                            formData.subject
+                              ? formData.subject
+                              : emptyInputForm.subject
                           }
                         />
                       </div>
+
                       <div>
                         <strong>Content</strong>
                         <TextField
@@ -274,18 +304,18 @@ const EmailModal = ({ state }) => {
                           onChange={e => setFormField("content", e)}
                           required
                           variant="outlined"
-                          defaultValue={formData.template}
+                          defaultValue={emptyInputForm.template}
                         />
                       </div>
-                      <Grid container spacing={2}>
-                        <ContactChips
-                          contactsData={contacts}
-                          contact={contact}
-                          setContact={setContact}
-                          formData={formData}
-                          addedUser={info ? info.email : null}
-                        />
-                      </Grid>
+                      <ContactChips
+                        contactsData={contacts}
+                        contact={contact}
+                        setContact={setContact}
+                        formData={formData}
+                        modalOpen={modalOpen}
+                        setModalOpen={setModalOpen}
+                        addedUser={info ? info.email : null}
+                      />
                     </div>
                   ) : activeStep === 1 ? (
                     // Art image input
@@ -303,7 +333,7 @@ const EmailModal = ({ state }) => {
                       <strong style={{ marginBottom: "20px" }}>
                         {formData.subject}
                       </strong>
-                      <p>Hi, [Individual contact name would be filled]</p>
+                      <p>Hi (XXX),</p>
                       <p>
                         {formData.content.length > 0
                           ? formData.content
@@ -311,20 +341,25 @@ const EmailModal = ({ state }) => {
                       </p>
                       <Grid
                         container
+                        direction="row"
                         spacing={4}
                         style={{ marginBottom: "15px" }}
+                        align="center"
                       >
                         {formData.images.length > 0 ? (
                           formData.images.map(image => (
-                            <Grid item>
+                            <Grid item xs={2}>
                               <img
+                                align="center"
+                                justify="center"
                                 src={image.add}
                                 style={{
-                                  width: "100px",
-                                  height: "100px",
-                                  display: "flex"
+                                  maxWidth: "100px",
+                                  maxHeight: "100px",
+                                  margin: "auto",
+                                  display: "block"
                                 }}
-                              ></img>
+                              />
                             </Grid>
                           ))
                         ) : (
@@ -350,17 +385,12 @@ const EmailModal = ({ state }) => {
                       />
                     </div>
                   ) : (
-                    <p>Your email is sent!</p>
+                    <h2>Your email is sent!</h2>
                   )}
                 </Typography>
                 <div
                   style={{
-                    position: "fixed",
-                    left: "auto",
-                    top: "auto",
-                    bottom: "10px",
-                    right: "10px",
-                    margin: "0px"
+                    float: "right"
                   }}
                 >
                   <Button
@@ -371,7 +401,10 @@ const EmailModal = ({ state }) => {
                     Back
                   </Button>
                   <Button
-                    disabled={formData.subject === ""}
+                    disabled={
+                      (activeStep === 0 && formData.subject === "") ||
+                      (activeStep === 2 && formData.password === "")
+                    }
                     variant="contained"
                     color="primary"
                     onClick={handleNext}

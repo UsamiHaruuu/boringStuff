@@ -47,9 +47,9 @@ const InventoryPage = ({ inventory }) => {
   return (
     <React.Fragment>
       <p style={{ marginTop: "2%" }}>
-        <b>4</b> paintings sold
+        <b>12</b> paintings sold
         <br />
-        <b>5</b> paintings left in inventory
+        <b>9</b> paintings left in inventory
       </p>
       <div style={{ textAlign: "center", paddingBottom: "20px" }}>
         <ButtonGroup style={{ marginLeft: "10%" }}>
@@ -58,15 +58,16 @@ const InventoryPage = ({ inventory }) => {
             className={classes.buttons}
             value="all"
             onClick={handleStatus}
+            style={toggleSold == "all" ? { backgroundColor: "#e3e1dc" } : {}}
           >
             all
           </Button>
           <Button
-            outline
             size="sm"
             className={classes.buttons}
             onClick={handleStatus}
             value="unsold"
+            style={toggleSold == "unsold" ? { backgroundColor: "#e3e1dc" } : {}}
           >
             unsold
           </Button>
@@ -75,6 +76,7 @@ const InventoryPage = ({ inventory }) => {
             className={classes.buttons}
             onClick={handleStatus}
             value="sold"
+            style={toggleSold == "sold" ? { backgroundColor: "#e3e1dc" } : {}}
           >
             sold
           </Button>

@@ -10,6 +10,8 @@
   src: url("./components/Fonts/cour.ttf");
 }
 
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
 @font-face {
   font-family: "ENGR";
   src: url("./components/Fonts/ENGR.TTF");
@@ -30,7 +32,7 @@ code {
 }
 .NavFont {
   font-size: medium;
-  font-family: "Pertili" !important;
+  font-family: "Roboto", sans-serif;
 }
 
 #signin {

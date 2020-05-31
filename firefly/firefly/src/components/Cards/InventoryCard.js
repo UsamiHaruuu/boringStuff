@@ -86,9 +86,9 @@ export const InventoryCard = ({ inventory }) => {
             color="primary"
             size="small"
           >
-            MORE
+            Details
           </Button>
-          <CardHeader title="Inventory" className={classes.headerSize} />
+          <CardHeader title="Artwork" className={classes.headerSize} />
         </CardActionArea>
 
         <Divider />

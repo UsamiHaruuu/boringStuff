@@ -8,29 +8,35 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import Icon from "@material-ui/core/Icon";
-import { green } from "@material-ui/core/colors";
 import { Checkbox } from "@material-ui/core";
-import ContactChips from "../Modal/ContactChips";
+import { GoPrimitiveDot } from "react-icons/go";
+
 const columns = [
-  { id: "name", label: "Name", minWidth: 170 },
-  { id: "email", label: "email", minWidth: 100 },
+  {
+    id: "status",
+    label: "Status",
+    minWidth: 30,
+    align: "center",
+    format: value => value.toLocaleString()
+  },
+  { id: "name", label: "Name", minWidth: 170, align: "left" },
+  { id: "email", label: "Email", minWidth: 100, align: "left" },
   {
     id: "phone",
-    label: "phone",
+    label: "Phone",
     minWidth: 100,
-    align: "right"
+    align: "left"
   },
   {
     id: "lastPurchase",
     label: "Last Purchased",
     minWidth: 170,
-    align: "right"
+    align: "left"
   },
   {
     id: "piecesBoughtYear",
     label: "Pieces Bought This Year",
-    minWidth: 170,
+    minWidth: 200,
     align: "center",
     format: value => value.toLocaleString()
   },
@@ -38,13 +44,6 @@ const columns = [
     id: "piecesBoughtTotal",
     label: "Pieces Bought Total",
     minWidth: 170,
-    align: "center",
-    format: value => value.toLocaleString()
-  },
-  {
-    id: "status",
-    label: "status",
-    minWidth: 100,
     align: "center",
     format: value => value.toLocaleString()
   }
@@ -61,20 +60,33 @@ const useStyles = makeStyles({
   }
 });
 
-const StickyHeadTable = ({ Data, contact, setContact }) => {
+const StickyHeadTable = ({ Data, tableContact, setTableContact }) => {
   const classes = useStyles();
-  const rows = Data;
+  Data.map(data => {
+    if (data.status === "G") data.status = "Z";
+  });
+  let rows = Data.sort(
+    (a, b) => a.status.charCodeAt(0) - b.status.charCodeAt(0)
+  );
+  rows.map(data => {
+    if (data.status === "Z") data.status = "G";
+  });
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  console.log(Data);
   const handleSelectAllClick = rows => {
     let names = [];
     rows.map(row => names.push(row.name));
-    contact.length === rows.length ? setContact([]) : setContact(names);
+    tableContact.length === rows.length
+      ? setTableContact([])
+      : setTableContact(names);
   };
   const handleClick = name => {
-    !contact.includes(name)
-      ? setContact([...contact, name])
-      : setContact(contact.filter(contactName => contactName !== name));
+    !tableContact.includes(name)
+      ? setTableContact([...tableContact, name])
+      : setTableContact(
+          tableContact.filter(contactName => contactName !== name)
+        );
   };
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -84,7 +96,6 @@ const StickyHeadTable = ({ Data, contact, setContact }) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
-  console.log(contact);
   return (
     <Paper className={classes.root}>
       <TableContainer className={classes.container}>
@@ -93,10 +104,8 @@ const StickyHeadTable = ({ Data, contact, setContact }) => {
             <TableRow>
               <TableCell padding="checkbox">
                 <Checkbox
-                  //indeterminate={true}
-                  //checked={false}
                   onClick={() => handleSelectAllClick(rows)}
-                  checked={contact.length === rows.length}
+                  checked={tableContact.length === rows.length}
                   inputProps={{ "aria-label": "select all contacts" }}
                 />
               </TableCell>
@@ -118,7 +127,7 @@ const StickyHeadTable = ({ Data, contact, setContact }) => {
                 return (
                   <TableRow
                     className={
-                      contact.includes(row.name) ? classes.selected : null
+                      tableContact.includes(row.name) ? classes.selected : null
                     }
                     clickable
                     role="checkbox"
@@ -131,25 +140,44 @@ const StickyHeadTable = ({ Data, contact, setContact }) => {
                         onClick={() => {
                           handleClick(row.name);
                         }}
-                        checked={contact.includes(row.name)}
+                        checked={tableContact.includes(row.name)}
                       />
                     </TableCell>
+
                     {columns.map(column => {
                       const value = row[column.id];
+                      console.log(value);
                       return (
                         <TableCell key={column.id} align={column.align}>
-                          {value === true ||
-                          value === false ||
-                          column.id === "email" ? (
-                            column.id === "email" ? (
-                              <a href="mailto: {value}">{value}</a>
-                            ) : value === true ? (
-                              <Icon style={{ color: green[500] }}>
-                                add_circle
-                              </Icon>
-                            ) : (
-                              <Icon color="secondary">add_circle</Icon>
-                            )
+                          {column.id === "email" ? (
+                            <a href="mailto: {value}">{value}</a>
+                          ) : value === "R" ? (
+                            <GoPrimitiveDot
+                              style={{
+                                color: "red",
+                                width: "20px",
+                                height: "20px",
+                                marginTop: "2px"
+                              }}
+                            />
+                          ) : value === "G" ? (
+                            <GoPrimitiveDot
+                              style={{
+                                color: "green",
+                                width: "20px",
+                                height: "20px",
+                                marginTop: "2px"
+                              }}
+                            />
+                          ) : value === "Y" ? (
+                            <GoPrimitiveDot
+                              style={{
+                                color: "orange",
+                                width: "20px",
+                                height: "20px",
+                                marginTop: "2px"
+                              }}
+                            />
                           ) : (
                             value
                           )}

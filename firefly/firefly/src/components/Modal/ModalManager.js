@@ -9,10 +9,7 @@ const ModalManager = ({
   inventory,
   contacts,
   info,
-  contact,
-  setContact,
-  formData,
-  setFormData
+  tableContact
 }) => {
   const [modalOpen, setModalOpen] = useState(false);
   return (
@@ -25,10 +22,7 @@ const ModalManager = ({
           inventory,
           contacts,
           info,
-          contact,
-          setContact,
-          formData,
-          setFormData
+          tableContact
         }}
       />
 

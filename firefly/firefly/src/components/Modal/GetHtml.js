@@ -9,11 +9,11 @@ const GetHtml = ({ images, name, content, template }) => {
       <Item>
         <Span fontSize={25} lineHeight={50}>
           {" "}
-          Hi, {name}
+          Hi {name},
         </Span>
       </Item>
       <Item align="justify">
-        {content.length < 0 ? content : template}
+        {content.length > 0 ? content : template}
         <br />
       </Item>
       <Item>
@@ -22,7 +22,7 @@ const GetHtml = ({ images, name, content, template }) => {
             <Row key={chunkIndex}>
               {chunk.map((image, i) => (
                 <Column key={i} large="4">
-                  <p>{image.title})</p>
+                  <p>{image.title}</p>
                   <Wrapper
                     style={{
                       height: "125px",

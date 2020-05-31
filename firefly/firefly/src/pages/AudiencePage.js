@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import StickyHeadTable from "../components/Tables/StickyHeadTable";
-import EnhancedTable from "../components/Tables/EnhancedTable";
 import Button from "@material-ui/core/Button";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import { makeStyles } from "@material-ui/core/styles";
@@ -9,6 +8,7 @@ import { Search as SearchIcon } from "@material-ui/icons";
 import { Typography, Divider } from "@material-ui/core";
 import ModalManager from "../components/Modal/ModalManager";
 import { useLocation } from "react-router-dom";
+import Avatar from "@material-ui/core/Avatar";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -71,48 +71,62 @@ const useStyles = makeStyles(theme => ({
     fontSize: 10,
     color: "white",
     marginBottom: "2%"
+  },
+  large: {
+    width: theme.spacing(14),
+    height: theme.spacing(14),
+    border: "8px solid",
+    borderColor: "#308047"
   }
 }));
+
 const AudiencePage = ({ contacts, currUser, inventory }) => {
-  const emptyInputForm = {
-    availableTill: new Date().toLocaleDateString(),
-    subject: "",
-    password: "",
-    name: "",
-    images: [],
-    sendTo: [],
-    template:
-      "It’s been a while since my last show, but I hope you are doing well. I remember you particularly like my gouche pieces and wanted to share these recent ones with you. \n\nIf you’re interested, I would love to see you at my next show where I’ll be displaying these peices and others.",
-    content: ""
-  };
-  const [table, setTable] = useState(0);
+  const [table, setTable] = useState(3);
   const classes = useStyles();
-  const [formData, setFormData] = useState(emptyInputForm);
   const buyers = contacts.filter(contact => contact.type === "buyers");
   const galleries = contacts.filter(contact => contact.type === "galleries");
   const collectors = contacts.filter(contact => contact.type === "collectors");
+  const [tableContact, setTableContact] = useState([]);
   const { info } = useLocation();
-  const [contact, setContact] = useState([]);
   console.log("this is info", info);
-  console.log(contacts);
-  useEffect(() => {
-    if (info) {
-      setContact([...contact, info.name]);
-      if (!formData["sendTo"].includes(info.name)) {
-        formData["sendTo"].push(info.email);
-      }
-    }
-  }, []);
+  const AllContactsTable = () => {
+    return (
+      <div className="showTable">
+        <div
+          style={{
+            color: "#263238",
+            marginTop: "2%",
+            fontFamily: "Roboto",
+            marginBottom: "1%"
+          }}
+        >
+          Manage All My Contacts
+        </div>
+        <StickyHeadTable
+          Data={contacts}
+          tableContact={tableContact}
+          setTableContact={setTableContact}
+        />
+      </div>
+    );
+  };
   const BuyersTable = () => {
     return (
       <div className="showTable">
-        <div style={{ color: "#263238", marginTop: "2%" }}>
+        <div
+          style={{
+            color: "#263238",
+            marginTop: "2%",
+            fontFamily: "Roboto",
+            marginBottom: "1%"
+          }}
+        >
           Manage My Buyers
         </div>
         <StickyHeadTable
           Data={buyers}
-          contact={contact}
-          setContact={setContact}
+          tableContact={tableContact}
+          setTableContact={setTableContact}
         />
       </div>
     );
@@ -120,10 +134,21 @@ const AudiencePage = ({ contacts, currUser, inventory }) => {
   const GalleriesTable = () => {
     return (
       <div className="showTable">
-        <div style={{ color: "#263238", marginTop: "2%" }}>
+        <div
+          style={{
+            color: "#263238",
+            marginTop: "2%",
+            fontFamily: "Roboto",
+            marginBottom: "1%"
+          }}
+        >
           Manage My Galleries
         </div>
-        <StickyHeadTable Data={galleries} />
+        <StickyHeadTable
+          Data={galleries}
+          tableContact={tableContact}
+          setTableContact={setTableContact}
+        />
       </div>
     );
   };
@@ -131,10 +156,21 @@ const AudiencePage = ({ contacts, currUser, inventory }) => {
   const CollectorsTable = () => {
     return (
       <div className="showTable">
-        <div style={{ color: "#263238", marginTop: "2%" }}>
+        <div
+          style={{
+            color: "#263238",
+            marginTop: "2%",
+            fontFamily: "Roboto",
+            marginBottom: "1%"
+          }}
+        >
           Manage My Collectors
         </div>
-        <StickyHeadTable Data={collectors} />
+        <StickyHeadTable
+          Data={collectors}
+          tableContact={tableContact}
+          setTableContact={setTableContact}
+        />
       </div>
     );
   };
@@ -143,7 +179,7 @@ const AudiencePage = ({ contacts, currUser, inventory }) => {
     return (
       <div className={classes.search}>
         <InputBase
-          placeholder="Start Typing name..."
+          placeholder="Start Typing Name..."
           classes={{
             root: classes.inputRoot,
             input: classes.inputInput
@@ -159,75 +195,88 @@ const AudiencePage = ({ contacts, currUser, inventory }) => {
 
   const UpperPage = () => {
     return (
-      <Grid container style={{ marginTop: "2%" }}>
+      <Grid container style={{ marginTop: "3%" }}>
         <Grid item xs={8}>
           <Grid container>
             <Grid item xs={3}>
-              <img
-                src={require("../imgs/Buyers.png")}
-                alt="buyer"
-                onClick={() => setTable(0)}
-                id="img1"
+              <Avatar
+                src={require("../imgs/All.png")}
+                alt="all"
+                className={classes.large}
+                onClick={() => setTable(3)}
               />
               <Typography
                 variant="body2"
                 style={{
                   color: "#263238",
                   marginTop: "10px",
-                  marginLeft: "37px"
+                  marginLeft: "45px"
+                }}
+              >
+                All
+              </Typography>
+            </Grid>
+
+            <Grid item xs={3}>
+              <Avatar
+                src={require("../imgs/Collectors.png")}
+                alt="collector"
+                onClick={() => setTable(2)}
+                className={classes.large}
+                style={{ marginLeft: "-35px" }}
+              />
+              <Typography
+                variant="body2"
+                style={{
+                  color: "#263238",
+                  marginTop: "10px",
+                  marginLeft: "-10px"
+                }}
+              >
+                Collectors
+              </Typography>
+            </Grid>
+            <Grid item xs={3}>
+              <Avatar
+                src={require("../imgs/Buyers.png")}
+                alt="buyer"
+                onClick={() => setTable(0)}
+                className={classes.large}
+                style={{ marginLeft: "-65px" }}
+              />
+              <Typography
+                variant="body2"
+                style={{
+                  color: "#263238",
+                  marginTop: "10px",
+                  marginLeft: "-30px"
                 }}
               >
                 Buyers
               </Typography>
             </Grid>
             <Grid item xs={3}>
-              <img
+              <Avatar
                 src={require("../imgs/Galleries.png")}
                 alt="gallery"
                 onClick={() => setTable(1)}
-                style={{ marginLeft: "-25px" }}
+                className={classes.large}
+                style={{ border: "8px solid #FFC368", marginLeft: "-90px" }}
               />
               <Typography
                 variant="body2"
                 style={{
                   color: "#263238",
                   marginTop: "10px",
-                  marginLeft: "10px"
+                  marginLeft: "-60px"
                 }}
               >
                 Galleries
               </Typography>
             </Grid>
-
-            <Grid item xs={3}>
-              <img
-                src={require("../imgs/Collectors.png")}
-                alt="collector"
-                onClick={() => setTable(3)}
-                style={{ marginLeft: "-40px" }}
-              />
-              <Typography
-                variant="body2"
-                style={{
-                  color: "#263238",
-                  marginTop: "10px",
-                  marginLeft: "-13px"
-                }}
-              >
-                Collectors
-              </Typography>
-            </Grid>
-            <Grid item xs={3}></Grid>
           </Grid>
         </Grid>
         <Grid item xs={4} style={{ textAlign: "right" }}>
-          <Button
-            variant="contained"
-            class={classes.button}
-            onClick={() => setTable(4)}
-          >
-            Show All Tables
-          </Button>
           <SearchBar />
           <ButtonGroup style={{ paddingTop: "10px", width: "350px" }}>
             <ModalManager
@@ -235,10 +284,7 @@ const AudiencePage = ({ contacts, currUser, inventory }) => {
               inventory={inventory}
               contacts={contacts}
               info={info}
-              contact={contact}
-              setContact={setContact}
-              formData={formData}
-              setFormData={setFormData}
+              tableContact={tableContact}
             />
             <Button
               style={{ maxHeight: "30px" }}
@@ -252,7 +298,6 @@ const AudiencePage = ({ contacts, currUser, inventory }) => {
       </Grid>
     );
   };
-
   return (
     <div>
       <UpperPage />
@@ -262,8 +307,13 @@ const AudiencePage = ({ contacts, currUser, inventory }) => {
           <BuyersTable />
         ) : table === 1 ? (
           <GalleriesTable />
-        ) : (
+        ) : table === 2 ? (
           <CollectorsTable />
+        ) : (
+          <div>
+            {" "}
+            <AllContactsTable />
+          </div>
         )}
       </div>
     </div>

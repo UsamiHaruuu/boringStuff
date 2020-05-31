@@ -28,10 +28,10 @@ export const MarketingCard = () => {
         color="primary"
         size="small"
       >
-        MORE
+        Details
       </Button>
       <CardHeader
-        title="Business / Marketing"
+        title="Promotions"
         //subheader="Continue to build up your brand!"
       />
       <Divider />
